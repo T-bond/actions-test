@@ -1,0 +1,29 @@
+name: Client build CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - shell: bash
+      run: |
+        apt-get install -y g++ make cmake qtbase5-dev qtdeclarative5-dev qtdeclarative5-dev qtquickcontrols2-5-dev
+    - shell: bash
+      run: cmake . && make -j`nproc`
+      name: Build client
+    - shell: bash
+      run: mkdir -p artifact && mv test artifact/
+    - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: caring-client
+          path: artifact/
