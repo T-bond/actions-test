@@ -23,7 +23,7 @@ jobs:
     - shell: bash
       run: mkdir -p artifact && mv test artifact/
     - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
+      uses: actions/upload-artifact@v2
+      with:
           name: caring-client
           path: artifact/
